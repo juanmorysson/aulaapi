@@ -4,11 +4,18 @@ from .models import Endereco
 from .forms import EnderecoForm
 from django.shortcuts import redirect
 import pycep_correios
+import googlemaps
 
 # Create your views here.
 
-def mapa(request):
-    return render(request, 'myapp/mapa.html', {'latitude': '-0.9', 'longitude': '-4.09' })
+def mapa(request, cid, uf, br):
+    gmaps = googlemaps.Client(key='AIzaSyDNzTsrViW4U2C7UxVK61PmE6Xmvp3wK74')
+    # Geocoding an address
+    geocode_result = gmaps.geocode(cid + ', '+ uf+ ', '+ br)
+    lat = geocode_result[0]["geometry"]["location"]["lat"]
+    lon = geocode_result[0]["geometry"]["location"]["lng"]
+
+    return render(request, 'myapp/mapa.html', {'latitude': str(lat), 'longitude': str(lon) })
     #return render(request, 'myapp/mapa.html', {'latitude': -22.912869, 'longitude': -43.228963 })
 
 

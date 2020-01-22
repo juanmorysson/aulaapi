@@ -3,7 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('mapa', views.mapa, name='mapa'),
+    path('mapa/<str:cid>/<str:uf>/<str:br>/', views.mapa, name='mapa'),
     path('', views.endereco_list, name='endereco_list'),
     path('endereco/<int:pk>/', views.endereco_detail, name='endereco_detail'),
     path('endereco/new', views.endereco_new, name='endereco_new'),
