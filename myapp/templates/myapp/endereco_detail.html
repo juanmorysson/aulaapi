@@ -3,26 +3,50 @@
 {% extends 'myapp/base.html' %}
 
 {% block dinamico %}
-	<div class="endereco">
-
-		<a href="{% url 'endereco_edit' pk=endereco.pk %}"> Editar Endereco </a>
-		<br>
-		<a href="{% url 'endereco_remove' pk=endereco.pk %}"> Deletar Endereco </a>
-
-		 
-		<h3> Endereço ::::::: </h3> 
-		<p>{{ endereco.logradouro }}<br>
-		{{ endereco.numero }}<br>
-		{{ endereco.bairro }}<br>
-		{{ endereco.complemento }}<br>
-		{{ endereco.complemento2 }}<br>
-		{{ endereco.cidade }}<br>
-		{{ endereco.estado }}<br>
-		{{ endereco.cep }}</p>
+	
+		<div style="width: 300px;">
+			<a href="{% url 'endereco_edit' pk=endereco.pk %}"> Editar Endereco </a>
+			<br>
+			<a href="{% url 'endereco_remove' pk=endereco.pk %}"> Deletar Endereco </a>
+			
+			<h3> Endereço ::::::: </h3> 
+			<p>{{ endereco.logradouro }}<br>
+			{{ endereco.numero }}<br>
+			{{ endereco.bairro }}<br>
+			{{ endereco.complemento }}<br>
+			{{ endereco.complemento2 }}<br>
+			{{ endereco.cidade }}<br>
+			{{ endereco.estado }}<br>
+			{{ endereco.cep }}</p>
+			
+			<br><br>
 		
-		<br><br>
+		</div>
+		<div  >
+			<a href="{% url 'mapa' %}">	Mapa </a>
+		</div>
 		
-	</div>
+	
+	<script>
+ 
+      function inicializar() {
+        var coordenadas = {lat: -22.912869, lng: -43.228963};
+ 
+        var mapa = new google.maps.Map(document.getElementById('mapa'), {
+          zoom: 15,
+          center: coordenadas 
+        });
+ 
+        var marker = new google.maps.Marker({
+          position: coordenadas,
+          map: mapa,
+          title: 'Meu marcador'
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVgO--eOyZS-cJ-IdJcLGW4Sfk7RxGXSA&callback=inicializar">
+    </script>
 {% endblock %}
 
 

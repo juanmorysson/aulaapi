@@ -3,8 +3,14 @@ from django.utils import timezone
 from .models import Endereco
 from .forms import EnderecoForm
 from django.shortcuts import redirect
+import pycep_correios
 
 # Create your views here.
+
+def mapa(request):
+    return render(request, 'myapp/mapa.html', {'latitude': '-0.9', 'longitude': '-4.09' })
+    #return render(request, 'myapp/mapa.html', {'latitude': -22.912869, 'longitude': -43.228963 })
+
 
 def endereco_list(request):
     enderecos = Endereco.objects.all()
@@ -13,8 +19,30 @@ def endereco_list(request):
 def endereco_detail(request, pk):
     endereco = get_object_or_404(Endereco, pk=pk)
     return render(request, 'myapp/endereco_detail.html', {'endereco': endereco})
-    
+  
+def busca_cep(request):
+    if request.method == "POST":
+        print('passei aqui')
+        cep = request.POST['cep']
+        ender = pycep_correios.consultar_cep(cep)
+        
+        data = {
+            'estado': ender['uf'],
+            'cidade': ender['cidade'],
+            'logradouro': ender['end'],
+            'bairro': ender['bairro'],
+            'cep': ender['cep'],
+        }
+        form = EnderecoForm(data)
+        
+        #form = EnderecoForm()
+        #form["estado"] = 
+        return render(request, 'myapp/endereco_edit.html', {'form': form})
+    else:
+        return render(request, 'myapp/buscar_cep.html', {})
+  
 def endereco_new(request):
+    print('passei aqui')
     if request.method == "POST":
         form = EnderecoForm(request.POST)
         if form.is_valid():

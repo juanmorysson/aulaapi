@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'easy_maps',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+
+## Easy Maps settings
+
+EASY_MAPS_CENTER = (-41.3, 32)
+
+EASY_MAPS_GOOGLE_KEY = "AIzaSyCVgO--eOyZS-cJ-IdJcLGW4Sfk7RxGXSA"
+EASY_MAPS_ZOOM = 16
+EASY_MAPS_LANGUAGE = 'ru'
